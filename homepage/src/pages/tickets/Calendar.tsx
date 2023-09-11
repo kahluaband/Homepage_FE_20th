@@ -44,7 +44,7 @@ return (
             <div className="flex font-[400] text-[12px] mx-auto my-auto ">
                 {dayNames.map((dayName) => (
                 <div key={dayName} className="mx-auto w-[20px] h-[20px] flex-shrink-0 mb-[4px] ">
-                    <div className={`${dayName === "Sun" ? "text-[red]" : ""} ${dayName==="Sat" ? "text-[blue]":""} w-[20px] h-[20px] text-[12px] font-[500] flex items-center justify-center`}>
+                    <div className="w-[20px] h-[20px] text-[4px] font-[500] flex items-center justify-center">
                     {dayName}
                     </div>
                 </div>

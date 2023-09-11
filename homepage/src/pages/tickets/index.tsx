@@ -63,7 +63,7 @@ export default function Tickets() {
 
     function copyUrl() {
         navigator.clipboard.writeText(nowUrl).then(res => {
-        alert("링크가 복사되었습니다!");
+        alert("주소가 복사되었습니다!");
         });
     }
 
@@ -72,13 +72,13 @@ export default function Tickets() {
     };
 
     return (
-        <div className="h-[1100px] flex items-center justify-center z-0 ">
+        <div className="h-[1200px] flex items-center justify-center z-0 ">
         <Background>
                 <div className="font-['pretendard']  flex flex-col items-center justify-center mb-[84px]">
                     <div className=" mt-[35px] flex flex-row  mx-auto w-[1110px]">
                         <Image src={data[0].image} alt='포스터' width={324} height={460} className='max-w-[324px] max-h-[460px]' priority/>
                         <div className="w-[776px] h-[402px] ml-[46px] flex-shrink-0">
-                            <div className="w-[76px] h-[24px] flex flex-shrink-0 justify-center rounded-[40px] bg-[#281CFF] text-[14px] font-[600] tracking-[0.2px] leading-[20px] text-[#FFF] pt-[2px] text-center ">예매가능</div>
+                            <div className="w-[76px] h-[24px]  flex-shrink-0 rounded-[40px] bg-[#281CFF] text-[14px] font-[600] tracking-[0.2px] leading-[20px] text-[#FFF] pt-[2px] text-center ">예매가능</div>
                             <div className="flex flex-row">
                                 <div className="mt-[8px] flex flex-shrink-0 text-black font-[700] text-[32px] leading-[42px]">{data[0].title}</div>
                                 <div className="ml-[272px] flex mt-[19px]">
@@ -153,7 +153,7 @@ export default function Tickets() {
                                 </div>
                                 
                             </div>
-                            <div className="w-[368px] h-[260px] flex flex-col bg-[#F1F5FF] ">
+                            <div className="w-[369px] h-[260px] flex flex-col bg-[#F1F5FF] ">
                             <div className=" flex flex-col ml-[50px] mt-[30px] mr-[50px]">
                                         <div className="flex w-[260px] text-center flex-row justify-between">
                                             <div className="text-[14px] font-[600] leading-[19px] w-[80px] h-[19px]">홍익대 신입생</div>
