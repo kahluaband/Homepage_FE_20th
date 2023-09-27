@@ -1,21 +1,60 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './index.css';
 import Background from "@/app/components/Background";
 import Link from "next/link";
+import axios from 'axios';
 
 export default function general_ticket(){
     const [count, setCount] = useState(1);
+    const [member, setmember] = useState(1);
+    const [buyer, setBuyer] = useState('');
+    const [phone_num, setphone_num] = useState('');
+    const [isCheck, setIsCheck] = useState(true);
+    const [payment, setPayment] = useState("계좌이체");
+
+    const handleSubmit = async () => {
+        try {
+            const formData = {
+                buyer,
+                phone_num,
+                member,
+                price,
+                payment,
+            };
+    
+            // POST 요청을 보내서 주문번호를 생성하고 가져오는 API 호출
+            const response = await axios.post('http://localhost:8000/tickets/general_ticket/', formData, {
+                headers: {
+                    'Content-Type': 'application/json', // "multipart/form-data" 형식으로 설정
+                },
+            });
+    
+            if (response.status === 200) {
+                console.log('요청이 성공적으로 처리되었습니다.');
+    
+                // 응답 데이터에서 주문번호 추출
+                // const reservation_id = response.data.reservation_id;
+                // console.log('주문번호:', reservation_id);
+    
+                console.log('응답 데이터:', response.data);
+            } else {
+                console.error('요청이 실패했습니다. HTTP 상태 코드:', response.status);
+                console.error('에러 응답:', response.data);
+            }
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
+    };
+    
+
     const handleIncrement = () => {
-        setCount((prevCount) => (prevCount < 5 ? prevCount + 1 : prevCount)); //최대값을 1로 설정
+        setmember((prevmember) => (prevmember < 5 ? prevmember + 1 : prevmember)); //최대값을 1로 설정
     };
 
     const handleDecrement = () => {
-        setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount)); //최소값을 1로 설정
+        setmember((prevmember) => (prevmember > 1 ? prevmember - 1 : prevmember)); //최소값을 1로 설정
     };
-
-    const [isCheck, setIsCheck] = useState(true);
-    const [payment, setPayment] = useState("계좌이체");
 
     const handleCheckboxChange1 = (event: any) => {
         setIsCheck(event.target.value === "true");
@@ -25,19 +64,39 @@ export default function general_ticket(){
         setPayment(event.target.value);
         };
 
+    const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const phoneNumber = event.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+        setphone_num(phoneNumber);
+    };
+
+    const handleNameChange = (event: any) => {
+        setBuyer(event.target.value);
+    };
+    
+    const [price, setPrice] = useState(5000);
+
+    useEffect(() => {
+        const calculatePrice = () => {
+            return 5000 * count;
+        }
+
+        const newPrice = calculatePrice();
+        setPrice(newPrice);
+    }, [count]);
+
     const payer_info = () => {
         const divs = [];
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < member; i++) {
             divs.push(
                 <div key={i}>
                     <div className="flex flex-row mt-[18px]">
                         <div className="flex items-center justify-center text-center">{i+1}. </div>
-                        <div className=" flex flex-row ml-[1vw] lg:mx-auto">
-                            <div className="text-[16px] leading-[26px] font-[500] items-center flex h-[40px] w-[7.5vw] min-w-[50px]">이름</div>
+                        <div className=" flex flex-row lg:mx-auto items-center justify-center">
+                            <div className="text-[16px] ml-[2vw]  leading-[26px] font-[500] items-center flex h-[40px] w-[7.5vw] min-w-[50px]"> 이름</div>
                             <div className="input-with-placeholder relative lg:w-[21vw] w-[18vw] ml-[0.5vw] h-[40px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
-                                <input type="text" placeholder=""/>
+                                <input type="text" placeholder="" onChange={handleNameChange}/>
                             </div>
-                            <div className="ml-[12vw]  lg:ml-[10vw] text-[16px] leading-[26px] font-[500] items-center flex  h-[40px] w-[7.5vw] min-w-[55px]">연락처</div>
+                            <div className="ml-[9vw]  lg:ml-[10vw] text-[16px] leading-[26px] font-[500] items-center flex  h-[40px] w-[7.5vw] min-w-[55px]">연락처</div>
                             <div className="input-with-placeholder relative lg:w-[21vw] w-[18vw] ml-[0.5vw] h-[40px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
                                 <input type="text" placeholder="‘-’없이 입력해주세요. 예) 01012345678"  onChange={handlePhoneNumberChange}/>
                             </div>
@@ -47,11 +106,6 @@ export default function general_ticket(){
             );
         }
         return divs;
-    };
-
-    const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const phoneNumber = event.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
-        event.target.value = phoneNumber;
     };
         
     return (
@@ -84,7 +138,7 @@ export default function general_ticket(){
                         <div className="bg-[white] w-[110px] h-[35px] mt-[20px] ml-[7.5vw] flex flex-shrink-0 border border-solid border-[#D9D9D9] rounded-[10px] items-center justify-center">
                                 <div className="flex gap-4">
                                     <button className="flex h-[35px] mt-[2px] pr-[8px] text-center items-center justify-center border-r border-[#D9D9D9] text-[26px] font-[700]" onClick={handleDecrement}>-</button>
-                                    <p className="text-[26px] font-[700]">{count}</p>
+                                    <p className="text-[26px] font-[700]">{member}</p>
                                     <button className="flex h-[35px] mt-[2px] pl-[8px] text-center items-center justify-center border-l border-[#D9D9D9] text-[26px] font-[700]" onClick={handleIncrement}>+</button>
                                 </div>
                             </div>
@@ -131,7 +185,7 @@ export default function general_ticket(){
                                 <input type="radio" name="결제방법" value={"계좌이체"} checked={payment === "계좌이체"}  onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
                                 <div className="font-[500]">계좌이체</div>
                             </label>
-                            <label className="ml-[118px] flex-row flex items-center justify-center ">
+                            <label className="ml-[5vw] flex-row flex items-center justify-center ">
                                 <input type="radio" name="결제방법" value={"카카오페이"} checked={payment === "카카오페이"} onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
                                 <div className="font-[500]">카카오페이</div>
                             </label>
@@ -143,7 +197,7 @@ export default function general_ticket(){
                             <div className="w-[200px] h-[29px] mt-[32px] font-[700] text-[20px] leading-[30px]">최종 결제 금액</div>
                         </div>
                         <div className="font-[700] text-[24px] mt-[20px] flex flex-row">
-                            5000원 x {count}매 = <p className="text-[#281CFF]">&nbsp;{5000*count}원</p>
+                            5000원 x {member}매 = <p className="text-[#281CFF]">&nbsp;{5000*member}원</p>
                         </div>
                     </div>
                     <div className="w-[72.5vw] h-[3px] mt-[40px] bg-[#D3D3D3]"/>
@@ -166,7 +220,7 @@ export default function general_ticket(){
                     )}
                     {payment === "카카오페이" && (
                         <Link href="payment">
-                            <button className="w-[270px] h-[52px] flex items-center justify-center rounded-[6px] bg-[#281CFF] text-[white] text-18px font-[700] leading-[17px] text-center">
+                            <button  onClick={handleSubmit} className="w-[270px] h-[52px] flex items-center justify-center rounded-[6px] bg-[#281CFF] text-[white] text-18px font-[700] leading-[17px] text-center">
                             결제하기
                             </button>
                         </Link>

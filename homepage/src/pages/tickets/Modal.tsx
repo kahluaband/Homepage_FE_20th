@@ -105,7 +105,7 @@ const Modal = () => {
                                     ))}
                             </div>
                             <div className="w-[514px] h-[48px] mt-[48px] mx-auto flex items-center">
-                                <button className="w-full h-full bg-[#E8E8E8] rounded-[8px] text-center text-[#000] text-[14px] font-[600] leading-[19px]">
+                                <button className="w-full h-full bg-[#E8E8E8] rounded-[8px] text-center text-[#000] hover:text-[#FFF] text-[14px] font-[600] leading-[19px] hover:bg-[#281CFF]">
                                     예매 취소하기
                                 </button>
                             </div>

@@ -3,9 +3,42 @@ import { useState } from "react";
 import './index.css';
 import Background from "@/app/components/Background";
 import Link from "next/link";
+import axios from 'axios';
 
 export default function freshman_ticket(){
     const [count, setCount] = useState(1);
+    const [buyer, setBuyer] = useState('');
+    const [phone_num, setphone_num] = useState('');
+    const [major, setmajor] = useState('');
+    const [student_id, setstudent_id] = useState('');
+    const [isCheck, setIsCheck] = useState(true);
+    const [meeting, setmeeting] = useState(true);
+    const [payment, setPayment] = useState("계좌이체");
+
+    const handleSubmit = async () => {
+        try {
+            const formData = {
+                buyer,
+                phone_num,
+                major,
+                student_id,
+                meeting,
+                payment,
+            };
+            const response = await axios.post('http://localhost:8000/tickets/freshman_ticket/', formData);
+
+            if (response.status === 200) {
+                console.log('요청이 성공적으로 처리되었습니다.');
+                console.log('응답 데이터:', response.data);
+            } else {
+                console.error('요청이 실패했습니다. HTTP 상태 코드:', response.status);
+                console.error('에러 응답:', response.data);
+            }
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
+    };
+
 
     const handleIncrement = () => {
         setCount((prevCount) => (prevCount < 1 ? prevCount + 1 : prevCount)); //최대값을 1로 설정
@@ -15,28 +48,22 @@ export default function freshman_ticket(){
         setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : prevCount)); //최소값을 1로 설정
     };
 
-    const [isCheck, setIsCheck] = useState(true);
-    const [isPick, setIsPick] = useState("참");
-    const [payment, setPayment] = useState("계좌이체");
-
     const handleCheckboxChange1 = (event: any) => {
         setIsCheck(event.target.value === "true");
     };
 
     const handleCheckboxChange2 = (event: any) => {
-        setIsPick(event.target.value);
+        setmeeting(event.target.value);
     };
 
     const handleCheckboxChange3 = (event: any) => {
         setPayment(event.target.value);
-        };
-        
-    const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const phoneNumber = event.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
-        event.target.value = phoneNumber;
     };
 
-
+    const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const phone_num = event.target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+        setphone_num(phone_num);
+    };
 
     return (
         <div className="h-[1900px] lg:h-[1800px] z-60">
@@ -80,37 +107,36 @@ export default function freshman_ticket(){
                     </div>
                     <div className="w-[72.5vw] h-[3px] mt-[40px] bg-[#D3D3D3] flex"/>
                     <div className="mx-auto ml-[0.5vw]">
-                        <div className="mt-[38px] flex lg:flex-row flex-col ">
-                            <div className="w-[140px] h-[29px] font-[700] pt-[8px] text-[20px] leading-[24px]">예매자 정보 입력</div>
-                            <div className="w-[60vw] h-[50px] lg:w-[60vw] text-[14px] text-[#464646] lg:ml-[2.5vw] ml-[0.5vw] flex flex-col lg:mt-0 mt-[15px] ">
+                        <div className=" flex lg:flex-row flex-col ">
+                            <div className="mt-[30px] w-[140px] h-[29px] font-[700] pt-[8px] text-[20px] leading-[24px]">예매자 정보 입력</div>
+                            <div className="w-[60vw] h-[50px] lg:w-[60vw] text-[14px] text-[#464646] lg:ml-[2.5vw] ml-[0.5vw] flex flex-col lg:mt-[16px] mt-[24px] ">
                                 <div>본인확인을 위해 정확한 정보를 입력해주세요.</div>
-                                <div className="flex flex-row">
+                                <div className="flex flex-col">
                                     <div className="hidden lg:flex ">
                                         <p>홍익대</p><p className="text-[#281CFF] flex flex-row">&nbsp;신입생 확인</p>을 위해 <p className="text-[#281CFF]">&nbsp;학과 및 학번 정보</p><p>를 작성해야 하는 점 양해 부탁드립니다.</p>
                                     </div>
-                                    <p className="hidden lg:flex">&nbsp;</p>
                                     <div className="text-[#0047FF] flex">추후 공연장 입장 시 학생증 확인이 이루어질 수 있습니다.</div> 
                                 </div>
                             </div>
                         </div>
                         <div className="mt-[18px] flex flex-row mx-auto">
-                            <div className="text-[16px] leading-[26px] font-[500] items-center flex h-[43px] w-[7.5vw] min-w-[50px]">이름</div>
+                            <div className="text-[16px] ml-[1vw] leading-[26px] font-[500] items-center flex h-[43px] w-[7.5vw] min-w-[50px]">이름</div>
                             <div className="input-with-placeholder relative lg:w-[21vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
-                                <input type="text" placeholder=""/>
+                                <input  value={buyer} type="text" placeholder="" onChange={(e) => setBuyer(e.target.value)}/>
                             </div>
-                            <div className="ml-[12vw] text-[16px] leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[55px]">연락처</div>
-                            <div className="input-with-placeholder relative lg:w-[22vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
-                                <input type="text" placeholder="‘-’없이 입력해주세요. 예) 01012345678" onChange={handlePhoneNumberChange}/>
+                            <div className="ml-[7.5vw] text-[16px] leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[55px]">연락처</div>
+                            <div className="input-with-placeholder relative lg:w-[24vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
+                                <input value={phone_num} type="text" placeholder="‘-’없이 입력해주세요. 예) 01012345678"  onChange={handlePhoneNumberChange} />
                             </div>
                         </div>
                         <div className="mt-[20px] flex flex-row">
-                        <div className="text-[16px] leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[50px]">학과</div>
+                        <div className="text-[16px] ml-[1vw]  leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[50px]">학과</div>
                             <div className="input-with-placeholder relative lg:w-[21vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
-                                <input type="text" placeholder=""/>
+                                <input value={major} type="text" placeholder="" onChange={(e) => setmajor(e.target.value)} />
                             </div>
-                            <div className="ml-[12vw]  text-[16px] leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[55px]">학번</div>
-                            <div className="input-with-placeholder relative lg:w-[22vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
-                                <input type="text" placeholder="예) C123456"/>
+                            <div className="ml-[7.5vw]  text-[16px] leading-[26px] font-[500] items-center flex  h-[43px] w-[7.5vw] min-w-[55px]">학번</div>
+                            <div className="input-with-placeholder relative lg:w-[24vw] w-[18vw] ml-[1vw] h-[43px] flex-shrink-0 border bg-[white] border-[#6A6A6A] border-solid rounded-[10px] px-2">
+                                <input value={student_id} type="text" placeholder="예) C123456" onChange={(e) => setstudent_id(e.target.value)}/>
                             </div>
                         </div>
                     </div>
@@ -144,11 +170,11 @@ export default function freshman_ticket(){
                         </div>
                         <div className="mt-[20px] text-[20px] flex flex-row">
                             <label className="flex flex-row items-center justify-center ">
-                                <input type="radio" name="뒷풀이" value={"참"} checked={isPick === "참"}  onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
-                                <div className="font-[500]">참</div>
+                                <input type="radio" name="뒷풀이" value={"참"} checked={meeting === true}  onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
+                                <div className="font-[500] w-[80px]">참</div>
                             </label>
-                            <label className="ml-[9.4vw] flex-row flex items-center justify-center ">
-                                <input type="radio" name="뒷풀이" value={"불참"} checked={isPick === "불참"} onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
+                            <label className="ml-[5vw] flex-row flex items-center justify-center ">
+                                <input type="radio" name="뒷풀이" value={"불참"} checked={meeting === false} onChange={handleCheckboxChange2} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
                                 <div className="font-[500]">불참</div>
                             </label>
                         </div>
@@ -162,9 +188,9 @@ export default function freshman_ticket(){
                         <div className="mt-[20px] text-[20px] flex flex-row">
                             <label className="flex flex-row items-center justify-center ">
                                 <input type="radio" name="결제방법" value={"계좌이체"} checked={payment === "계좌이체"}  onChange={handleCheckboxChange3} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
-                                <div className="font-[500]">계좌이체</div>
+                                <div className="font-[500] w-[80px]">계좌이체</div>
                             </label>
-                            <label className="ml-[118px] flex-row flex items-center justify-center ">
+                            <label className="ml-[5vw] flex-row flex items-center justify-center ">
                                 <input type="radio" name="결제방법" value={"카카오페이"} checked={payment === "카카오페이"} onChange={handleCheckboxChange3} className="mr-[18px] accent-[#281CFF]  w-[18px] h-[18px] flex-shrink-0"/>
                                 <div className="font-[500]">카카오페이</div>
                             </label>
@@ -185,7 +211,7 @@ export default function freshman_ticket(){
                 </div>
                 <div className="flex items-center justify-center mt-[94px]">
                     <Link href="/tickets/complete">
-                        <button className="w-[270px] h-[53px] felx items-center justify-center rounded-[6px] bg-[#281CFF] text-[white]  text-18px] font-[700] leading-[17px] text-center">결제하기</button>
+                        <button  onClick={handleSubmit} className="w-[270px] h-[53px] felx items-center justify-center rounded-[6px] bg-[#281CFF] text-[white]  text-18px] font-[700] leading-[17px] text-center">결제하기</button>
                     </Link>
                 </div>
             </div>
