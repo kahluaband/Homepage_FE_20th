@@ -35,7 +35,7 @@ let Links =[
     {name:"소개하기",link:"/about"},
     {name:"공연영상",link:"/performance"},
     {name:"예매하기",link:"/tickets"},
-    {name:"지원하기",link:"/recruit"},
+    {name:"지원하기",link:"/application"},
 ];
 
 return (

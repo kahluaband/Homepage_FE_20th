@@ -19,7 +19,7 @@ export default function RepNotice() {
                     <br/>
                     면접기간 : 2023.03.10(월) ~ 2023.03.11(화)
                 </p>
-                <a className="flex justify-center items-center h-[84px] w-1/2 rounded-[300px] bg-ocean mt-14" href="/apply">
+                <a className="flex justify-center items-center h-[84px] w-1/2 rounded-[300px] bg-ocean mt-14" href="/application/apply">
                     <p className="text-2xl font-semibold text-[#FFFFFF]">KAHLUA 23기 지원하기</p>
                 </a>
 
