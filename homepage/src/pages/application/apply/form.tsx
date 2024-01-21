@@ -174,8 +174,8 @@ export default function Form(){
 
         return !onClose ? (
             <div onClick={handleOverlayClick} className= "fixed z-50 top-0 left-0 right-0 bottom-0 bg-[#0000008a] flex justify-center items-center">
-                <div className="font-['pretendard'] w-[200px] h-[235px] sm:w-[580px] sm:h-[330px] bg-[#FFF] flex-shrink-0 fixed rounded-[10px] z-20">
-                    <button onClick={handleIsClose} className="ml-[180px] mt-[2px] h-[22px] sm:h-[30px] sm:ml-[552px] flex-col items-center flex justify-center">
+                <div className="font-['pretendard'] w-[220px] h-[235px] sm:w-[580px] sm:h-[330px] bg-[#FFF] flex-shrink-0 fixed rounded-[10px] z-20">
+                    <button onClick={handleIsClose} className="ml-[200px] mt-[2px] h-[22px] sm:h-[30px] sm:ml-[552px] flex-col items-center flex justify-center">
                     <Image src="/assets/images/layout/close.svg" width={36} height={38} alt="close" className="w-[16px] h-[16px] sm:w-[22px] sm:h-[22px]"/>
                     </button>
                     <div className="flex flex-col items-center text-center content-center mt-[12px] sm:mt-[40px] leading-normal">

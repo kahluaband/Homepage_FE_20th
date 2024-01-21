@@ -199,7 +199,7 @@ export default function Tickets() {
   return (
     <div className="h-[950px] p:h-[1100px] x:h-[1100px] sm:h-[1450px] md:h-[1400px] lg:h-[1100px] flex z-0 sm:top-[30px]">
       <Background>
-        <div className="font-['pretendard']  flex flex-col items-center sm:mb-[84px] mx-auto sm:pt-[30px]">
+        <div className="font-['pretendard']  flex flex-col items-center sm:mb-[84px] mx-auto sm:pt-[20px]">
           <div className=" flex flex-row w-[100%] lg:w-[1024px] justify-center items-start content-center ">
             <Image
               src={data[0].image}
@@ -290,7 +290,7 @@ export default function Tickets() {
                   <div className="mt-[14px] lg:mt-[42px] w-[50vw] lg:w-[400px] xl:w-[434px] border-b flex bg-[#D9D9D9]" />
                   <div className="mt-[14px] lg:mt-[42px] flex flex-row w-[50vw] md:w-[434px]">
                     <div className="flex flex-row h-[77px]">
-                      <div className="text-[10px] md:text-[14px] w-[18px] md:w-[25px] h-[66px] font-[700] flex leading-[17px] mt-[28px] text-center">
+                      <div className="text-[10px] md:text-[14px] w-[18px] md:w-[25px] h-[66px] font-[700] flex leading-[17px] mt-[28px] text-center whitespace-nowrap">
                         가격
                       </div>
                       <div className="flex flex-col ml-[7vw] lg:ml-[64px] h-[66px]">

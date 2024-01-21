@@ -74,11 +74,11 @@ export default function Navbar() {
                     <div className="lg:flex pt-[16px] sm:pt-[30px]">
                         <div className="flex justify-between">
                             <Link href="/" key="home">
-                                <Image src="/assets/images/layout/Logo.svg" alt="Logo" width={165} height={30} onClick={showMenu ? toggleMenu : undefined} className="ml-[20px] my-[2px] lg:ml-[12.5vw] sm:mt-0 w-[105px] sm:w-[165px] lg:w-[12.5vw] h-[18px] sm:h-[30px] lg:max-w-[10vw] max-w-[165px] max-h-[30px]" priority />
+                                <Image src="/assets/images/layout/logo.svg" alt="Logo" width={165} height={30} onClick={showMenu ? toggleMenu : undefined} className="ml-[20px] my-[2px] lg:ml-[12.5vw] sm:mt-0 w-[130px] sm:w-[165px] lg:w-[12.5vw] h-[24px] sm:h-[30px] lg:max-w-[10vw] max-w-[165px] max-h-[30px]" priority />
                             </Link>
                             <div className="lg:hidden z-50 ">
                                 <button className="px-2 outline-none" onClick={isClose ? handleIsClose : toggleMenu}>
-                                    {showMenu ? (<Image src="/assets/images/layout/close.svg" width={32} height={32} alt="close" className="w-[22px] h-[22px] sm:w-[32px] sm:h-[32px] "/>) : (<Image src="/assets/images/layout/hamburger.svg" width={32} height={32} alt="hamburger" className="w-[22px] h-[22px] sm:w-[32px] sm:h-[32px] focus:border-none active:border-none" />)}
+                                    {showMenu ? (<Image src="/assets/images/layout/close.svg" width={32} height={32} alt="close" className="w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] "/>) : (<Image src="/assets/images/layout/hamburger.svg" width={32} height={32} alt="hamburger" className="w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] focus:border-none active:border-none" />)}
                                 </button>
                             </div>
                         </div>
